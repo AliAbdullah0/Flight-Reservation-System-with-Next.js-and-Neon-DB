@@ -167,11 +167,11 @@ function ClientSideMobileMenu({
               Home
             </Link>
             <Link
-              href="/about"
+              href="/explore"
               className="text-neutral-100 text-sm transition px-3 py-2 rounded-full hover:bg-white/10"
               onClick={() => setIsOpen(false)}
             >
-              About
+              Explore
             </Link>
             <Link
               href="/flights"
