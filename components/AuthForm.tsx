@@ -112,7 +112,7 @@ export default function AuthForm() {
                               <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                               <Input
                                 placeholder="Enter your username"
-                                className="pl-10 outline-none border-white/20"
+                                className="pl-10 outline-none text-white border-white/20"
                                 {...field}
                                 disabled={isPending}
                               />
@@ -135,7 +135,7 @@ export default function AuthForm() {
                               <Input
 
                                 placeholder="Enter your phone number"
-                                className="pl-10 outline-none border-white/20"
+                                className="pl-10 text-white outline-none border-white/20"
                                 {...field}
                                 disabled={isPending}
                               />
@@ -156,7 +156,7 @@ export default function AuthForm() {
                               <CreditCard className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                               <Input
                                 placeholder="Enter your card number"
-                                className="pl-10 outline-none border-white/20"
+                                className="pl-10 text-white outline-none border-white/20"
                                 {...field}
                                 disabled={isPending}
                               />
@@ -179,7 +179,7 @@ export default function AuthForm() {
                           <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                           <Input
                             placeholder="Enter your email"
-                            className="pl-10 outline-none border-white/20"
+                            className="pl-10 text-white outline-none border-white/20"
                             {...field}
                             disabled={isPending}
                           />
@@ -201,7 +201,7 @@ export default function AuthForm() {
                           <Input
                             type="password"
                             placeholder="Enter your password"
-                            className="pl-10 border-white/20 outline-none"
+                            className="pl-10 text-white border-white/20 outline-none"
                             {...field}
                             disabled={isPending}
                           />
