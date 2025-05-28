@@ -69,7 +69,7 @@ export default function AuthForm() {
           : await signInUser(formData);
 
         toast.success(response.message);
-        if(!isSignUp) router.push("/");
+        if(!isSignUp) window.location.href = '/';
         form.reset();
       } catch (error: any) {
         toast.error(error.message || "An error occurred");
@@ -83,8 +83,8 @@ export default function AuthForm() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-black">
-      <div className="lg:w-1/2 w-full h-[50vh] lg:h-screen bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop')"}}>
+    <div className="min-h-screen flex flex-col items-center justify-center lg:justify-normal lg:flex-row bg-black">
+      <div className="lg:w-1/2 lg:block hidden w-full h-[50vh] lg:h-screen bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop')"}}>
       </div>
       <div className="lg:w-1/2 w-full flex items-center justify-center p-4">
         <Card className="w-full bg-white/5 border border-gray-700 max-w-md shadow-lg">

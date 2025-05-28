@@ -4,6 +4,15 @@ import bcrypt from 'bcryptjs';
 import sql from "@/lib/neon";
 import { cookies } from 'next/headers';
 
+type CurrentUserResponse = {
+  user_id: number;
+  username: string;
+  phone_number: number;
+  email: string;
+  cardnumber: number;
+  reservations: Reservation[];
+} | null;
+
 
 export const createUser = async (formData: FormData) => {
   const username = formData.get("username") as string | null;
@@ -115,3 +124,94 @@ export const signOutUser = async () => {
       throw error;
     }
 };
+
+export const getCurrentUserWithReservations = async (): Promise<CurrentUserResponse> => {
+  try {
+    const cookie = await cookies();
+    const token = cookie.get('auth_token');
+    const userId = token?.value;
+
+    if (!userId) {
+      return null;
+    }
+
+    const result = await sql`
+      SELECT 
+        u.user_id,
+        u.username,
+        u.phone_number,
+        u.email,
+        u.cardnumber,
+        json_agg(
+          json_build_object(
+            'reservation_id', r.reservation_id,
+            'user_id', r.user_id,
+            'airport_name', r.airport_name,
+            'arrival_airport', r.arrival_airport,
+            'departure_date', r.departure_date,
+            'country', r.country,
+            'airline', r.airline,
+            'reservation_date', r.reservation_date
+          )
+        ) as reservations
+      FROM users u
+      LEFT JOIN reservations r ON u.user_id = r.user_id
+      WHERE u.user_id = ${userId}
+      GROUP BY u.user_id, u.username, u.phone_number, u.email, u.cardnumber
+    `;
+
+    if (!result || result.length === 0) {
+      return null;
+    }
+
+    const user = result[0];
+    const reservations = user.reservations && user.reservations[0]?.reservation_id ? user.reservations : [];
+    
+    return {
+      user_id: user.user_id,
+      username: user.username,
+      phone_number: user.phone_number,
+      email: user.email,
+      cardnumber: user.cardnumber,
+      reservations,
+    };
+  } catch (error) {
+    console.error("Error in getCurrentUser:", error);
+    return null;
+  }
+};
+
+export const updateProfile = async (formData: FormData) => {
+  const username = formData.get("username") as string | null;
+  const phone_number = formData.get("phone_number") as string | null;
+  const email = formData.get("email") as string | null;
+  const cardnumber = formData.get("cardnumber") as string | null;
+
+  if (!username || !phone_number || !email || !cardnumber) {
+    throw new Error("Missing required fields.");
+  }
+
+  try {
+    const cookie = await cookies()
+    const token = cookie.get('auth_token')
+    const userId = token?.value
+
+    if (!userId) {
+      throw new Error("User not authenticated.");
+    }
+
+    await sql`
+      UPDATE users
+      SET username = ${username}, phone_number = ${parseInt(phone_number)}, email = ${email}, cardnumber = ${parseInt(cardnumber)}
+      WHERE user_id = ${userId}
+    `;
+
+    return {
+      success: true,
+      status: 200,
+      message: "Profile updated successfully."
+    };
+  } catch (error) {
+    throw error;
+  }    
+}

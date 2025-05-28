@@ -28,5 +28,6 @@ interface Reservation {
     departure_date: Date;
     country: string;
     airline: string;
+    reservation_date:Date;
     user:User;
 }

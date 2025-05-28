@@ -17,12 +17,11 @@ interface ClientSideMobileMenuProps {
 }
 
 export default function Header() {
-  const user = useUser(); 
+  const { user } = useUser(); 
   const router = useRouter();
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-
-  const initials: string = user.user?.username
-    ? user.user.username
+  const initials: string = user?.username
+    ? user.username
         .split(" ")
         .map((n: string) => n[0])
         .join("")
@@ -77,7 +76,7 @@ export default function Header() {
         </nav>
 
         <div className="hidden md:flex items-center relative">
-          {user.user ? (
+          {user ? (
             <div
               className="relative"
               onClick={() => setIsDropdownOpen((prev)=>!prev)}
@@ -118,7 +117,7 @@ export default function Header() {
         <ClientSideMobileMenu
           initials={initials}
           isLoading={false}
-          user={user.user}
+          user={user}
           handleSignOut={handleSignOut}
         />
       </div>

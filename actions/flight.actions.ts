@@ -120,5 +120,21 @@ export const getTrendingAirlines = async () => {
     } catch (error) {
       throw error;
     }
-  };
+};
+
+export const deleteReservation = async (reservationId: number) => {
+    try {
+      await sql`
+        DELETE FROM reservations WHERE reservation_id = ${reservationId}
+      `;
+  
+      return {
+        success: true,
+        status: 200,
+        message: "Reservation deleted successfully"
+      };
+    } catch (error) {
+      throw error;
+    }
+};
   
