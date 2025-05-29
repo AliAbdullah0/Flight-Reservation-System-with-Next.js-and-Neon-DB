@@ -18,7 +18,6 @@ const Explore = () => {
     },
   ]
 
-  // Auto-slide every 3 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length)

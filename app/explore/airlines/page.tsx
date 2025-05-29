@@ -4,19 +4,18 @@ import React, { useState, useEffect } from "react";
 import { getTrendingAirlines } from "@/actions/flight.actions";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// Update the interface
+
 interface TrendingAirline {
   airline_name: string;
   reservation_count: number;
-  airline_code?: string; // Optional if not coming from backend
+  airline_code?: string; 
 }
 
-// Placeholder images
 const airlineImages = [
   "https://images.unsplash.com/photo-1436491865332-7a61a109cc05",
   "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
-  "https://images.unsplash.com/photo-1518242007689-880e47e7a5e1",
-  "https://images.unsplash.com/photo-1503455637927-730d68371fe0",
+  "https://images.pexels.com/photos/321159/pexels-photo-321159.jpeg?",
+  "https://images.pexels.com/photos/2026324/pexels-photo-2026324.jpeg?",
   "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad",
   "https://images.unsplash.com/photo-1530549387789-4c1017266634",
 ];

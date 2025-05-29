@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { getCurrentUserWithReservations } from '@/actions/user.actions';
+import DeleteButton from '@/components/DeleteButton';
 
 type CurrentUserResponse = {
   user_id: number;
@@ -92,6 +93,7 @@ const Profile = async () => {
                       </TableCell>
                       <TableCell className="text-white">{reservation.country}</TableCell>
                       <TableCell className="text-white">{reservation.airline}</TableCell>
+                      <DeleteButton reservation_id={reservation.reservation_id}/>
                     </TableRow>
                   ))}
                 </TableBody>

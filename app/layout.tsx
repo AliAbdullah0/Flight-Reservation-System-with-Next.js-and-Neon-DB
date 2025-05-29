@@ -4,6 +4,8 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/Header";
 import { UserProvider } from "../context/userContext";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const monaSans = Mona_Sans({
   variable: "--font-mona-sans",
@@ -21,13 +23,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={` ${monaSans.className} bg-black antialiased`}
         >
         <UserProvider>
         <Header/>
+        <Suspense fallback={<Loading/>}>
         {children}
+        </Suspense>
         <Toaster position="bottom-right"/>
       </UserProvider>
       </body>

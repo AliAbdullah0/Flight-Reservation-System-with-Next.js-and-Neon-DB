@@ -62,7 +62,7 @@ export default function Header() {
             Explore
           </Link>
           <Link
-            href="/flights"
+            href="/explore/flights"
             className="text-neutral-100 text-sm transition px-3 py-2 rounded-full hover:bg-white/10"
           >
             Flights
@@ -173,7 +173,7 @@ function ClientSideMobileMenu({
               Explore
             </Link>
             <Link
-              href="/flights"
+              href="/explore/flights"
               className="text-neutral-100 text-sm transition px-3 py-2 rounded-full hover:bg-white/10"
               onClick={() => setIsOpen(false)}
             >

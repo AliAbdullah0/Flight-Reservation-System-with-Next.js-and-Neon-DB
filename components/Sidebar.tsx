@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { MapPin, Plane, BookOpen, Menu, X, ChevronLeft } from 'lucide-react';
+import { MapPin, Plane, BookOpen, Menu, X, ChevronLeft, PlaneTakeoff } from 'lucide-react';
 import Link from 'next/link';
 
 interface NavItem {
@@ -18,6 +18,7 @@ const Sidebar: React.FC = () => {
   };
 
   const navItems: NavItem[] = [
+    { name: 'Flights', icon: PlaneTakeoff, href: '/explore/flights' },
     { name: 'Locations', icon: MapPin, href: '/explore/locations' },
     { name: 'Airlines', icon: Plane, href: '/explore/airlines' },
     { name: 'Reservations', icon: BookOpen, href: '/explore/reservation' },

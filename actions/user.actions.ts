@@ -14,6 +14,7 @@ type CurrentUserResponse = {
 } | null;
 
 
+
 export const createUser = async (formData: FormData) => {
   const username = formData.get("username") as string | null;
   const phone_number = formData.get("phone_number") as string | null;
@@ -73,8 +74,12 @@ export const signInUser = async (formData: FormData) => {
     }
     const cookie = await cookies()
     const token = cookie.set('auth_token',existingUser.user_id.toString(),{
-      httpOnly: true,
+      maxAge:7 * 3600 * 24,
+      httpOnly:true,
+      secure:false,
+      sameSite: "lax",
     })
+
     return {
       success: true,
       status: 200,

@@ -29,5 +29,15 @@ interface Reservation {
     country: string;
     airline: string;
     reservation_date:Date;
-    user:User;
+    user_id:number;
+}
+
+interface Flight {
+    flight_id: number;
+    arrival_airport: string;
+    flight_airport: string;
+    departure_date: Date;
+    country:string;
+    airline: string;
+    price: number;
 }

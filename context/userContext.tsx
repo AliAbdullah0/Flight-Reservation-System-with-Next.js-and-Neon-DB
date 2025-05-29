@@ -10,7 +10,6 @@ import {
 import { getCurrentUser } from "@/actions/user.actions";
 import { Loader2 } from "lucide-react";
 
-// Define the shape of your user
 interface User {
   user_id: number;
   username: string;
@@ -20,16 +19,14 @@ interface User {
   cardnumber: number;
 }
 
-// Define the context type with both user and setUser
 interface UserContextType {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
-// Create the context with undefined initial value
+
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-// Props for provider
 interface UserProviderProps {
   children: ReactNode;
 }
@@ -69,7 +66,6 @@ export function UserProvider({ children }: UserProviderProps) {
   );
 }
 
-// Custom hook to use the context safely
 export function useUser(): UserContextType {
   const context = useContext(UserContext);
   if (context === undefined) {
