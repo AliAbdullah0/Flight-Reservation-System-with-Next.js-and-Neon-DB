@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { getCurrentUserWithReservations } from '@/actions/user.actions';
 import DeleteButton from '@/components/DeleteButton';
+import UpdateProfileDialog from '@/components/UpdateProfile';
 
 type CurrentUserResponse = {
   user_id: number;
@@ -50,19 +51,22 @@ const Profile = async () => {
               </Avatar>
               <div>
                 <CardTitle className="text-2xl font-bold text-white">{user.username}</CardTitle>
-                <p className="text-white/80">{user.email}</p>
+                <p className="text-white/80 md:text-base text-sm">{user.email}</p>
               </div>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2 text-white">
+            <div className="space-y-2 md:text-base text-white">
               <p><strong>Phone Number:</strong> {user.phone_number}</p>
               <p><strong>Card Number:</strong> **** **** **** {user.cardnumber.toString().slice(-4)}</p>
             </div>
+            <UpdateProfileDialog
+            initialUsername={user.username}
+            initialCardnumber={user.cardnumber}
+            />
           </CardContent>
         </Card>
 
-        {/* Reservations Card */}
         <Card className="bg-white/10 border border-white/20 rounded-2xl">
           <CardHeader>
             <CardTitle className="text-2xl font-bold text-white">Your Reservations</CardTitle>
@@ -74,26 +78,28 @@ const Profile = async () => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="text-white">Reservation ID</TableHead>
-                    <TableHead className="text-white">Departure Airport</TableHead>
-                    <TableHead className="text-white">Arrival Airport</TableHead>
-                    <TableHead className="text-white">Departure Date</TableHead>
-                    <TableHead className="text-white">Country</TableHead>
-                    <TableHead className="text-white">Airline</TableHead>
+                    <TableHead className="text-white md:text-base text-sm">Reservation ID</TableHead>
+                    <TableHead className="text-white md:text-base text-sm">Departure Airport</TableHead>
+                    <TableHead className="text-white md:text-base text-sm">Arrival Airport</TableHead>
+                    <TableHead className="text-white md:text-base text-sm">Departure Date</TableHead>
+                    <TableHead className="text-white md:text-base text-sm">Country</TableHead>
+                    <TableHead className="text-white md:text-base text-sm">Airline</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {user.reservations.map((reservation) => (
                     <TableRow key={reservation.reservation_id}>
-                      <TableCell className="text-white border-none">{reservation.reservation_id}</TableCell>
-                      <TableCell className="text-white border-none">{reservation.airport_name}</TableCell>
-                      <TableCell className="text-white border-none">{reservation.arrival_airport}</TableCell>
-                      <TableCell className="text-white border-none">
+                      <TableCell className="text-white md:text-base text-sm border-none">{reservation.reservation_id}</TableCell>
+                      <TableCell className="text-white md:text-base text-sm border-none">{reservation.airport_name}</TableCell>
+                      <TableCell className="text-white md:text-base text-sm border-none">{reservation.arrival_airport}</TableCell>
+                      <TableCell className="text-white md:text-base text-sm border-none">
                         {new Date(reservation.departure_date).toLocaleDateString()}
                       </TableCell>
-                      <TableCell className="text-white">{reservation.country}</TableCell>
-                      <TableCell className="text-white">{reservation.airline}</TableCell>
+                      <TableCell className="text-white md:text-base text-sm">{reservation.country}</TableCell>
+                      <TableCell className="text-white md:text-base text-sm">{reservation.airline}</TableCell>
+                      <TableCell>
                       <DeleteButton reservation_id={reservation.reservation_id}/>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

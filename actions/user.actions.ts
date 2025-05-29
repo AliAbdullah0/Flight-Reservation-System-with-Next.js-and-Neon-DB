@@ -186,20 +186,18 @@ export const getCurrentUserWithReservations = async (): Promise<CurrentUserRespo
   }
 };
 
-export const updateProfile = async (formData: FormData) => {
+export const updateUsernameAndCard = async (formData: FormData) => {
   const username = formData.get("username") as string | null;
-  const phone_number = formData.get("phone_number") as string | null;
-  const email = formData.get("email") as string | null;
   const cardnumber = formData.get("cardnumber") as string | null;
 
-  if (!username || !phone_number || !email || !cardnumber) {
+  if (!username || !cardnumber) {
     throw new Error("Missing required fields.");
   }
 
   try {
-    const cookie = await cookies()
-    const token = cookie.get('auth_token')
-    const userId = token?.value
+    const cookie = await cookies();
+    const token = cookie.get("auth_token");
+    const userId = token?.value;
 
     if (!userId) {
       throw new Error("User not authenticated.");
@@ -207,16 +205,17 @@ export const updateProfile = async (formData: FormData) => {
 
     await sql`
       UPDATE users
-      SET username = ${username}, phone_number = ${parseInt(phone_number)}, email = ${email}, cardnumber = ${parseInt(cardnumber)}
+      SET username = ${username}, cardnumber = ${parseInt(cardnumber)}
       WHERE user_id = ${userId}
     `;
 
     return {
       success: true,
       status: 200,
-      message: "Profile updated successfully."
+      message: "Username and Card Number updated successfully.",
     };
   } catch (error) {
+    console.error("Error updating username and card number:", error);
     throw error;
-  }    
-}
+  }
+};
